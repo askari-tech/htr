@@ -5,8 +5,21 @@ from PIL import Image
 import json
 from fastapi import FastAPI, UploadFile
 from ultralytics import YOLO
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Define CORS settings
+origins = ["*"]  # You can change "*" to the specific origin(s) you want to allow.
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # You can specify specific HTTP methods here if needed.
+    allow_headers=["*"],  # You can specify specific headers here if needed.
+)
 
 # Define a function to sort and filter bounding boxes
 def sort_and_filter_boxes(boxes):
